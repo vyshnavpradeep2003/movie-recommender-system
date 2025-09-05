@@ -1,6 +1,8 @@
+import os
 import pickle
 import streamlit as st
 import requests
+import gdown
 
 def fetch_poster(movie_id):
     url="https://api.themoviedb.org/3/movie/{}?api_key=7562123330bdf248b2006bbab50ff6e1&language=en-US".format(movie_id)
@@ -21,6 +23,10 @@ def recommend(movie):
         recommended_movies_name.append(movies.iloc[i[0]].title)
     return recommended_movies_name, recommended_movies_poster
 
+os.makedirs("artifacts", exist_ok=True)
+similarity_file_id = "1cEfj5Ra4sSLKehy4zWMiOt02wPP54qja"
+if not os.path.exists("artifacts/similarity.pkl"):
+    gdown.download(f"https://drive.google.com/uc?id={similarity_file_id}", "artifacts/similarity.pkl", quiet=False)
 st.header("Movie Recommender System Using Machine Learning")
 movies=pickle.load(open('artifacts/movie_list.pkl','rb'))
 similarity=pickle.load(open('artifacts/similarity.pkl','rb'))
