@@ -2,3 +2,5 @@ streamlit
 
 #local packages
 -e .
+
+gdown
